@@ -237,9 +237,9 @@ Also, there are open source implementations for basic data structs and algorithm
 | 1539 | [Kth Missing Positive Number](https://leetcode.com/problems/kth-missing-positive-number/) | [Java](https://github.com/qiyuangong/leetcode/blob/master/java/1539_Kth_Missing_Positive_Number.java) | Binary search, num of missing = arr[i]-i-1 |
 | 1981 | [Minimize the Difference Between Target and Chosen Elements](https://leetcode.com/problems/minimize-the-difference-between-target-and-chosen-elements/) | [Java](https://github.com/qiyuangong/leetcode/blob/master/java/1981_Minimize_the_Difference_Between_Target_and_Chosen_Elements.java) | DP memo[row][sum] to avoid recomputing |
 
-| # | To Understand |
+| # | Notes |
 |---| ----- |
-| 4 | [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) |
+| 1 | [Binary Search Trees](notes/data_structures/binary_search_tree/binary_search_tree.ipynb) |
 
 ## Other LeetCode Repos
 
