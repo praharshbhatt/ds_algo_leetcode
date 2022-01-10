@@ -14522,7 +14522,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A class that represents an individual node in a</span>
@@ -14533,7 +14533,7 @@ a.anchor-link {
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">key</span>
 </pre></div>
 
      </div>
@@ -14559,18 +14559,10 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A class to store a BST node</span>
-<span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
-
-
-<span class="c1"># Function to perform inorder traversal on the BST</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Function to perform inorder traversal on the BST</span>
 <span class="k">def</span> <span class="nf">inorder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span>
@@ -14628,10 +14620,53 @@ In the case of binary search trees (BST), Inorder traversal gives nodes in non-d
 <p>Example: In order traversal for the above-given figure is 4 2 5 1 3.</p>
 
 </div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Inorder-Traversal">Inorder Traversal<a class="anchor-link" href="#Inorder-Traversal">&#182;</a></h3><p><strong>Explanation</strong></p>
+<ol>
+<li>Traverse the left subtree, i.e., call Inorder(left-subtree)</li>
+<li>Visit the root.</li>
+<li>Traverse the right subtree, i.e., call Inorder(right-subtree)</li>
+</ol>
+<p>A new key is always inserted at the leaf. We start searching a key from the root until we hit a leaf node. Once a leaf node is found, the new node is added as a child of the leaf node.</p>
+<p><strong>Time Complexity</strong></p>
+<p>O(n)</p>
+<p>Let us see different corner cases.
+Complexity function T(n) — for all problems where tree traversal is involved — can be defined as:
+T(n) = T(k) + T(n – k – 1) + c
+Where k is the number of nodes on one side of the root and n-k-1 on the other side.
+Let’s do an analysis of boundary conditions
+Case 1: Skewed tree (One of the subtrees is empty and another subtree is non-empty )
+k is 0 in this case. 
+T(n) = T(0) + T(n-1) + c 
+T(n) = 2T(0) + T(n-2) + 2c 
+T(n) = 3T(0) + T(n-3) + 3c 
+T(n) = 4T(0) + T(n-4) + 4c
+………………………………………… 
+…………………………………………. 
+T(n) = (n-1)T(0) + T(1) + (n-1)c 
+T(n) = nT(0) + (n)c
+Value of T(0) will be some constant say d. (traversing an empty tree will take some constants time)
+T(n) = n(c+d) 
+T(n) = Θ(n) (Theta of n)
+Case 2: Both left and right subtrees have an equal number of nodes.
+T(n) = 2T(|<em>n/2</em>|) + c
+This recursive function is in the standard form (T(n) = aT(n/b) + (-)(n) ) for master method <a href="http://en.wikipedia.org/wiki/Master_theorem">http://en.wikipedia.org/wiki/Master_theorem</a>. If we solve it by master method we get (-)(n)</p>
+<p><strong>Space Complexity</strong></p>
+<p>If we don’t consider the size of the stack for function calls then O(1).
+Otherwise, O(h) where h is the height of the tree.</p>
+<p>The height of the skewed tree is n (no. of elements) so the worst space complexity is O(n).
+Height is (Log n) for the balanced tree so the best space complexity is O(Log n).</p>
+<p><strong>Uses</strong>
+In the case of binary search trees (BST), Inorder traversal gives nodes in non-decreasing order. To get nodes of BST in non-increasing order, a variation of Inorder traversal where Inorder traversal s reversed can be used.</p>
+<p>Example: In order traversal for the above-given figure is 4 2 5 1 3.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A function to do inorder tree traversal</span>
@@ -14643,7 +14678,7 @@ In the case of binary search trees (BST), Inorder traversal gives nodes in non-d
         <span class="n">printInorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
  
         <span class="c1"># then print the data of node</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">),</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
  
         <span class="c1"># now recur on right child</span>
         <span class="n">printInorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
@@ -14739,7 +14774,7 @@ Please see <a href="http://en.wikipedia.org/wiki/Polish_notation">http://en.wiki
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A function to do preorder tree traversal</span>
@@ -14748,7 +14783,7 @@ Please see <a href="http://en.wikipedia.org/wiki/Polish_notation">http://en.wiki
     <span class="k">if</span> <span class="n">root</span><span class="p">:</span>
  
         <span class="c1"># First print the data of node</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">),</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
  
         <span class="c1"># Then recur on left child</span>
         <span class="n">printPreorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
@@ -14800,54 +14835,10 @@ The Inorder traversal of binary tree is
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="PostOrder-Traversal">PostOrder Traversal<a class="anchor-link" href="#PostOrder-Traversal">&#182;</a></h3><p><strong>Explanation</strong></p>
-<ol>
-<li>Traverse the left subtree, i.e., call PostOrder(left-subtree)</li>
-<li>Traverse the right subtree, i.e., call PostOrder(right-subtree)</li>
-<li>Visit the root.</li>
-</ol>
-<p><strong>Time Complexity</strong></p>
-<p>O(n)</p>
-<p>Let us see different corner cases.
-Complexity function T(n) — for all problems where tree traversal is involved — can be defined as:
-T(n) = T(k) + T(n – k – 1) + c
-Where k is the number of nodes on one side of the root and n-k-1 on the other side.
-Let’s do an analysis of boundary conditions
-Case 1: Skewed tree (One of the subtrees is empty and another subtree is non-empty )
-k is 0 in this case. 
-T(n) = T(0) + T(n-1) + c 
-T(n) = 2T(0) + T(n-2) + 2c 
-T(n) = 3T(0) + T(n-3) + 3c 
-T(n) = 4T(0) + T(n-4) + 4c
-………………………………………… 
-…………………………………………. 
-T(n) = (n-1)T(0) + T(1) + (n-1)c 
-T(n) = nT(0) + (n)c
-Value of T(0) will be some constant say d. (traversing an empty tree will take some constants time)
-T(n) = n(c+d) 
-T(n) = Θ(n) (Theta of n)
-Case 2: Both left and right subtrees have an equal number of nodes.
-T(n) = 2T(|<em>n/2</em>|) + c
-This recursive function is in the standard form (T(n) = aT(n/b) + (-)(n) ) for master method <a href="http://en.wikipedia.org/wiki/Master_theorem">http://en.wikipedia.org/wiki/Master_theorem</a>. If we solve it by master method we get (-)(n)</p>
-<p><strong>Space Complexity</strong></p>
-<p>If we don’t consider the size of the stack for function calls then O(1).
-Otherwise, O(h) where h is the height of the tree.</p>
-<p>The height of the skewed tree is n (no. of elements) so the worst space complexity is O(n).
-Height is (Log n) for the balanced tree so the best space complexity is O(Log n).</p>
-<p><strong>Uses</strong></p>
-<p>Preorder traversal is used to create a copy of the tree.
-Preorder traversal is also used to get prefix expression on an expression tree.
-Please see <a href="http://en.wikipedia.org/wiki/Polish_notation">http://en.wikipedia.org/wiki/Polish_notation</a> know why prefix expressions are useful.</p>
-<p>Example: Preorder traversal for the above-given figure is 1 2 4 5 3.</p>
-
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A function to do postorder tree traversal</span>
@@ -14862,7 +14853,7 @@ Please see <a href="http://en.wikipedia.org/wiki/Polish_notation">http://en.wiki
         <span class="n">printPostorder</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
  
         <span class="c1"># now print the data of node</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">),</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
         
 <span class="c1"># Driver code</span>
 <span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -14900,6 +14891,203 @@ The Inorder traversal of binary tree is
 3
 1
 </pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Breadth-first-traversal">Breadth first traversal<a class="anchor-link" href="#Breadth-first-traversal">&#182;</a></h3><p><strong>Methods</strong></p>
+<ol>
+<li>Use function to print a current level</li>
+<li>Using queue</li>
+</ol>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Method-1-(Use-function-to-print-a-current-level)">Method 1 (Use function to print a current level)<a class="anchor-link" href="#Method-1-(Use-function-to-print-a-current-level)">&#182;</a></h3><p><strong>Expatiation</strong></p>
+<p>There are basically two functions in this method.
+One is to print all nodes at a given level (printCurrentLevel), and other is to print level order traversal of the tree (printLevelorder). printLevelorder makes use of printCurrentLevel to print nodes at all levels one by one starting from the root.</p>
+<p><strong>Time Complexity</strong></p>
+<p>O(n^2) in worst case. For a skewed tree, printGivenLevel() takes O(n) time where n is the number of nodes in the skewed tree. So time complexity of printLevelOrder() is O(n) + O(n-1) + O(n-2) + .. + O(1) which is O(n^2).</p>
+<p><strong>Space Complexity</strong></p>
+<p>O(n) in worst case. For a skewed tree, printGivenLevel() uses O(n) space for call stack. For a Balanced tree, the call stack uses O(log n) space, (i.e., the height of the balanced tree).</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Recursive Python program for level</span>
+
+
+<span class="c1"># Function to  print level order traversal of tree</span>
+<span class="k">def</span> <span class="nf">printLevelOrder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">height</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">h</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">printCurrentLevel</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+
+<span class="c1"># Print nodes at a current level</span>
+<span class="k">def</span> <span class="nf">printCurrentLevel</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">level</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">printCurrentLevel</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">level</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">printCurrentLevel</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">level</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="sd">&quot;&quot;&quot; Compute the height of a tree--the number of nodes</span>
+<span class="sd">    along the longest path from the root node down to</span>
+<span class="sd">    the farthest leaf node</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">height</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Compute the height of each subtree</span>
+        <span class="n">lheight</span> <span class="o">=</span> <span class="n">height</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">rheight</span> <span class="o">=</span> <span class="n">height</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+        <span class="c1"># Use the larger one</span>
+        <span class="k">if</span> <span class="n">lheight</span> <span class="o">&gt;</span> <span class="n">rheight</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">lheight</span><span class="o">+</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">rheight</span><span class="o">+</span><span class="mi">1</span>
+
+
+<span class="c1"># Driver program to test above function</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Level order traversal of binary tree is -&quot;</span><span class="p">)</span>
+<span class="n">printLevelOrder</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Level order traversal of binary tree is -
+1 2 3 4 5 </pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Method-2-(Using-queue)">Method 2 (Using queue)<a class="anchor-link" href="#Method-2-(Using-queue)">&#182;</a></h3><p><strong>Expatiation</strong></p>
+<p>For each node, first the node is visited and then it’s child nodes are put in a FIFO queue.</p>
+<p><strong>Time Complexity</strong></p>
+<p>O(n^2) in worst case. For a skewed tree, printGivenLevel() takes O(n) time where n is the number of nodes in the skewed tree. So time complexity of printLevelOrder() is O(n) + O(n-1) + O(n-2) + .. + O(1) which is O(n^2).</p>
+<p><strong>Space Complexity</strong></p>
+<p>O(n) in worst case. For a skewed tree, printGivenLevel() uses O(n) space for call stack. For a Balanced tree, the call stack uses O(log n) space, (i.e., the height of the balanced tree).</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># order traversal using Queue</span>
+<span class="k">def</span> <span class="nf">printLevelOrder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="c1"># Base Case</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Create an empty queue</span>
+    <span class="c1"># for level order traversal</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Enqueue Root and initialize height</span>
+    <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+        <span class="c1"># Print front of queue and</span>
+        <span class="c1"># remove it from queue</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Enqueue left child</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+
+        <span class="c1"># Enqueue right child</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+<span class="c1"># Function to  print level order traversal of tree</span>
+<span class="k">def</span> <span class="nf">printLevelOrder</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">height</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">h</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">printCurrentLevel</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+
+<span class="c1"># Driver Program to test above function</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Level Order Traversal of binary tree is -&quot;</span><span class="p">)</span>
+<span class="n">printLevelOrder</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<span class="c1"># This code is contributed by Nikhil Kumar Singh(nickzuck_007)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Level Order Traversal of binary tree is -
+1 2 3 4 5 </pre>
 </div>
 </div>
 
