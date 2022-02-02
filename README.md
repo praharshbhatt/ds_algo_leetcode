@@ -240,6 +240,7 @@ Also, there are open source implementations for basic data structs and algorithm
 | # | Notes |
 |---| ----- |
 | 1 | [Binary Search Trees](notes/data_structures/binary_search_tree/binary_search_tree.ipynb) |
+| 2 | [Binary Search Trees](notes/concepts/tree_traversals/tree_traversals.ipynb) |
 
 ## Other LeetCode Repos
 
